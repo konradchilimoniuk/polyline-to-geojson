@@ -1,0 +1,268 @@
+$primary-color: rgb(94, 128, 66);
+$secondary-color: rgb(215, 224, 207);
+$body-color: rgba(215, 224, 207, .3);
+$button-radius: 5px;
+$box-radius: 15px;
+$global-transition: .3s ease-in-out all;
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  min-height: 100vh;
+
+  background-color: $body-color;
+  padding: 30px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background-color: $primary-color;
+  color: #FFF;
+  font-weight: bold;
+  border: none;
+  border-radius: $button-radius;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: $global-transition;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.app-description {
+  margin-bottom: 30px;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+#root {
+  background-color: #FFF;
+  border-radius: $box-radius;
+  box-shadow: 0 5px 10px rgba(0,0,0,.05);
+
+  padding: 2em;
+  width: 85%;
+  max-width: 1000px;
+  flex-grow: 1;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: stretch;
+}
+
+.content {
+  flex-grow: 1;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: stretch;
+}
+
+#file-loader {
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: relative;
+
+  #drop-area {
+    background-color: lighten($secondary-color, 8);
+    position: relative;
+    border-radius: $box-radius;
+    flex-grow: 1;
+    transition: $global-transition;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    &:hover, &.active {
+      background-color: $secondary-color;
+    }
+
+    & #file-chooser-input {
+      display: none;
+    }
+
+    & .drag-area-button {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 30px;
+    }
+
+    #drag-area-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $secondary-color;
+      opacity: 0;
+      pointer-events: none;
+      transition: $global-transition;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+
+      &.active {
+        opacity: 1;
+        pointer-events: unset;
+      }
+
+      & .drag-area-overlay-text {
+        text-align: center;
+        font-size: 30px;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.error-group {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .error {
+    background: #C22;
+    border-radius: $button-radius;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFF;
+
+    .close {
+      float: right;
+      cursor: pointer;
+      margin-left: 15px;
+
+      &:after {
+        content: "\00D7"
+      }
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-bottom: 5px;
+  }
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  
+  &.success {
+    color: rgb(58, 155, 45);
+  }
+}
+
+.section-content {
+  margin-bottom: 30px;
+
+  .section-option {
+    padding: 10px 0;
+
+    label {
+      width: 200px;
+      display: inline-block;
+      text-align: right;
+      margin-right: 20px;
+      font-weight: bold;
+    }
+
+    .select-wrapper {
+      position: relative;
+      width: 290px;
+      display: inline-block;
+
+      font-size: 12px;
+      background: none;
+      border: 1px solid #CCC;
+      border-radius: $button-radius;
+
+      &:after {
+        content: '\25BE';
+        right: 0;
+        padding: 5px 10px;
+        position: absolute;
+        pointer-events: none;
+      }
+    }
+
+    select {
+      width: 100%;
+      background: none;
+      cursor: pointer;
+      border: none;
+      appearance: none;
+      padding: 5px 10px;
+    }
+
+    .optional {
+      display: inline;
+      margin-left: 10px;
+      font-style: italic;
+      color: #666;
+      font-size: 70%;
+    }
+  }
+
+  .section-description {
+    width: calc(100% - 200px - 20px);
+    margin: 10px 0 0 220px;
+  }
+}
+
+.section {
+
+  & button {
+    display: block;
+    margin: 10px 0 0;
+  }
+
+  &.centered {
+    text-align: center;
+
+    & button {
+      display: block;
+      margin: 10px auto 0;
+    }
+  }
+}
