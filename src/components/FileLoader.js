@@ -2,7 +2,6 @@ import React from 'react'
 import ErrorNotification from './ErrorNotification';
 import { v4 as uuid } from 'uuid'
 import DragArea from './DragArea';
-import Loading from './Loading';
 import worker from 'workerize-loader!./worker/FileDataWorker' // eslint-disable-line import/no-webpack-loader-syntax
 
 class FileLoader extends React.Component {
@@ -11,7 +10,6 @@ class FileLoader extends React.Component {
 
         this.state = {
             inDragArea: false,
-            isFileLoading: false,
             errors: []
         }
     
@@ -68,12 +66,9 @@ class FileLoader extends React.Component {
 
     handleFile = file => {
         if(file !== null && file !== undefined) {
-            if(file.type !== "text/csv") {
-                this.showError("Uploaded file is not a CSV file.")
-                return;
-            }
+            if(file.type !== "text/csv") return this.showError("Uploaded file is not a CSV file.")
 
-            this.setState({ isFileLoading: true })
+            this.props.handleIsFileLoading(true);
             var reader = new FileReader();
             var fileDataWorker = worker();
 
@@ -84,7 +79,7 @@ class FileLoader extends React.Component {
                     })
                     .catch(error => {
                         this.showError(error.message);
-                        this.setState({ isFileLoading: false });
+                        this.props.handleIsFileLoading(false);
                     })
             }
 
@@ -108,8 +103,7 @@ class FileLoader extends React.Component {
     render() {
         return (
             <div id="file-loader">
-                {(!this.state.isFileLoading && !this.props.isFileUploaded) && <DragArea dragProps={this.dragProps} inDragArea={this.state.inDragArea} handleFile={this.handleFile} />}
-                {this.state.isFileLoading && <Loading />}
+                <DragArea dragProps={this.dragProps} inDragArea={this.state.inDragArea} handleFile={this.handleFile} />
                 <div className="error-group">
                     {this.state.errors.map(error => <ErrorNotification key={error.id} message={error.message} index={error.id} removeError={this.removeError} />)}
                 </div>

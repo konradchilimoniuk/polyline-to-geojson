@@ -174,6 +174,7 @@ button {
 }
 
 .loading {
+  flex-grow: 1;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -194,7 +195,6 @@ h2 {
 }
 
 .section-content {
-  margin-bottom: 30px;
 
   .section-option {
     padding: 10px 0;
@@ -235,6 +235,17 @@ h2 {
       padding: 5px 10px;
     }
 
+    input {
+      width: 290px;
+      padding: 5px 10px;
+      display: inline-block;
+
+      font-size: 12px;
+      background: none;
+      border: 1px solid #CCC;
+      border-radius: $button-radius;
+    }
+
     .optional {
       display: inline;
       margin-left: 10px;
@@ -251,10 +262,24 @@ h2 {
 }
 
 .section {
+  margin-bottom: 30px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   & button {
     display: block;
     margin: 10px 0 0;
+
+    &.centered {
+      margin: 10px auto 0;
+    }
+
+    &.inline {
+      display: inline;
+      margin: 0 0 0 15px;
+    }
   }
 
   &.centered {
