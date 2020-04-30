@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/polyline-to-geojson/precache-manifest.3164665a58e33a92b87d128a41ae9a2b.js"
+  "/polyline-to-geojson/precache-manifest.cd49f8ab50a8d09293fbf0068794b500.js"
 );
 
 self.addEventListener('message', (event) => {
