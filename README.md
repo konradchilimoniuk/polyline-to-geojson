@@ -1,6 +1,6 @@
 # Polyline To GeoJSON Decoder
 
-Polyline To GeoJSON Decoder is an app created in React that takes your CSV file containing Polylines and convertes them into Feature Collection using (@mapbox)[https://github.com/mapbox] library. Additionally, path animation can be included, if your file has start and end timestamps. All calculations are done on the client side. No data is uploaded on server.
+Polyline To GeoJSON Decoder is an app created in React that takes your CSV file containing Polylines and convertes them into Feature Collection using [@mapbox](https://github.com/mapbox) library. Additionally, path animation can be included, if your file has start and end timestamps. All calculations are done on the client side. No data is uploaded on server.
 
 ## Usage
 
@@ -11,4 +11,4 @@ Polyline To GeoJSON Decoder is an app created in React that takes your CSV file 
 
 ## Additional Information
 
-Pagination was created using (this tutorial on Digital Ocean)[https://www.digitalocean.com/community/tutorials/how-to-build-custom-pagination-with-react].
+Pagination was created using [this tutorial on Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-build-custom-pagination-with-react).
