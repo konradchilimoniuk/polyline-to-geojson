@@ -38,27 +38,24 @@ export const generateFeatureCollection = (data, columns, polylineColumnId, start
         let feature = {
           type: "Feature",
           properties: Object.assign(...columns.map((column, i) => ({[column]: row[i]}))),
-          geometry: {
-            type: "LineString",
-            coordinates: []
-          }
+          geometry: null
         }
   
-        let coordinates = polyline.decode(row[polylineColumnId]);
+        let geometry = polyline.toGeoJSON(row[polylineColumnId]);
   
         if(includePathAnimation && startTimestampColumnId && endTimestampColumnId) {
           let startTimestamp = Date.parse(row[startTimestampColumnId]);
           let endTimestamp = Date.parse(row[endTimestampColumnId]);
-          let interval = Math.floor((endTimestamp - startTimestamp) / coordinates.length);
+          let interval = Math.floor((endTimestamp - startTimestamp) / geometry.coordinates.length);
   
-          coordinates.map((coordinate, index) => {
+          geometry.coordinates.map((coordinate, index) => {
             coordinate.push(1);
             coordinate.push(startTimestamp + index * interval);
             return coordinate;
           });
         }
   
-        feature.geometry.coordinates = coordinates;
+        feature.geometry = geometry;
         exportObject.features.push(feature);
       }
 

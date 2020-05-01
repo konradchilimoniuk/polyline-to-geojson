@@ -45,14 +45,6 @@ button {
   }
 }
 
-.app-description {
-  margin-bottom: 30px;
-
-  h1 {
-    margin: 0;
-  }
-}
-
 #root {
   background-color: #FFF;
   border-radius: $box-radius;
@@ -185,7 +177,7 @@ button {
   }
 }
 
-h2 {
+h1, h2 {
   margin-top: 0;
   margin-bottom: 10px;
   
@@ -286,6 +278,10 @@ h2 {
 
     &:last-of-type {
       border-radius: 0 5px 5px 0;
+    }
+
+    &:only-of-type {
+      border-radius: 5px;
     }
 
     &.active {
@@ -423,13 +419,32 @@ select {
           background-image: url('./images/arrow-white.svg');
           width: 10px;
           height: 10px;
-          display: inline-block;
-          margin-left: 5px;
+          
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+
           transition: $global-transition;
+          animation-name: showArrow;
+          animation-fill-mode: forwards;
+          animation-duration: 0.3s;
+          animation-timing-function: ease-in-out;
         }
 
         &.desc .arrow {
-          transform: rotate(180deg);
+          transform: translateY(-50%) rotate(180deg);
+        }
+
+        @keyframes showArrow {
+          from {
+            opacity: 0;
+            margin-left: -15px;
+          }
+        
+          to {
+            opacity: 1;
+            margin-left: 5px;
+          }
         }
       }
 
@@ -441,5 +456,14 @@ select {
         }
       }
     }
+  }
+}
+
+
+.reupload-file {
+  text-align: center;
+  
+  button {
+    margin-top: 10px;
   }
 }

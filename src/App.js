@@ -80,9 +80,9 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <div className="app-description">
+        <div className="section">
             <h1>Polyline to GeoJSON Decoder</h1>
-            <p>Upload CSV file that contains Polyline values, which will be used to convert to GeoJSON coordinates. Optionally, your file can contain start timestamp and end timestamp for animating paths. Every available column will be converted into Feature properties.</p>
+            <div className="section-content">Upload CSV file that contains Polyline values, which will be used to convert to GeoJSON coordinates. Optionally, your file can contain start timestamp and end timestamp for animating paths. Every available column will be converted into Feature properties.</div>
         </div>
         <div className="content">
           {(!this.state.isFileLoading && !this.state.isFileUploaded && !this.state.isGenerating) &&
