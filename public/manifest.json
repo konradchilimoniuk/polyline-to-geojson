@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Polyline To GeoJSON Decoder",
+  "name": "Upload your CSV file with polyline and decode them into GeoJSON file.",
   "icons": [
     {
       "src": "favicon.ico",

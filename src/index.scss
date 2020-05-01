@@ -399,12 +399,17 @@ select {
       position: relative;
       border-collapse: collapse; 
       text-align: left;
+      width: 100%;
 
       th, td {
         padding: 15px;
         max-width: 300px;
         white-space: nowrap;
         overflow: hidden;
+
+        &.row-number {
+          width: 70px;
+        }
       }
 
       th {

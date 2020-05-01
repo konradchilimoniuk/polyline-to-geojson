@@ -67,7 +67,7 @@ export class DataEditor extends Component {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th className="row-number">#</th>
                                     {this.props.columns.map((column,index) => {
                                         return <th
                                             key={`th-${index}`}
@@ -80,7 +80,7 @@ export class DataEditor extends Component {
                             <tbody>
                                 {partialData.map((row, rowIndex) => {
                                     return <tr key={`tr-${rowIndex}`}>
-                                        <td>{dataStart + rowIndex + 1}</td>
+                                        <td className="row-number">{dataStart + rowIndex + 1}</td>
                                         {row.map((cell, cellIndex)=> <td key={`td-${cellIndex}`}>{cell}</td>)}
                                     </tr>
                                 })}

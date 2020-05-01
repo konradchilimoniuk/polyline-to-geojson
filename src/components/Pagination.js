@@ -45,11 +45,10 @@ const createPagination = (pageNeighbours, totalPages, currentPage) => {
 }
 
 const handleJumpTo = (e, setPage, setJumpToPage, totalPages) => {
-    console.log(e.type)
     e.preventDefault();
     var value = parseInt(e.target.value);
 
-    if(e.type === 'blur' || e.key === 'enter') {
+    if(e.type === 'blur' || e.key === 'Enter') {
         if(value > totalPages) value = totalPages;
         if(value < 1) value = 1;
         !isNaN(value) && setPage(value);
@@ -57,7 +56,6 @@ const handleJumpTo = (e, setPage, setJumpToPage, totalPages) => {
         return;
     }
 
-    console.log(value);
     !isNaN(value) ? setJumpToPage(value) : setJumpToPage('');
 }
 
@@ -81,7 +79,14 @@ export default function Pagination({ currentPage, totalPages, rowsPerPage, setPa
                 </select>
             </div>
             <span className="desc">Jump To:</span>
-            <input type="number" min={1} max={totalPages} value={jumpToPage} onChange={e => handleJumpTo(e, setPage, setJumpToPage, totalPages)} onBlur={e => handleJumpTo(e, setPage, setJumpToPage, totalPages)} />
+            <input type="number"
+                min={1}
+                max={totalPages}
+                value={jumpToPage}
+                onChange={e => handleJumpTo(e, setPage, setJumpToPage, totalPages)}
+                onBlur={e => handleJumpTo(e, setPage, setJumpToPage, totalPages)}
+                onKeyPress={e => e.key === 'Enter' ? handleJumpTo(e, setPage, setJumpToPage, totalPages) : null}
+            />
         </div>
     )
 }

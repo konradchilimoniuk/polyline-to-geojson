@@ -13,17 +13,17 @@ export const parseFileData = fileData => {
     var data = rows.slice(1).map(row => row.split(","));
 
     var polylineColumnId = columns.findIndex(column => column.toUpperCase().match(/(POLYLINE)/g));
-    if(polylineColumnId === -1) polylineColumnId = null;
+    if(polylineColumnId === -1) polylineColumnId = '';
 
     var startKeywords = keywords.general.concat(keywords.startDate).join('|');
     var startRegex = new RegExp(`(?<=(^|[_\\s]))(${startKeywords})(?=($|[_\\s]))\\S+(?<=(^|[_\\s]))(${startKeywords})(?=($|[_\\s]))`, 'g');
     var startTimestampColumnId = columns.findIndex(column => column.toUpperCase().match(startRegex));
-    if(startTimestampColumnId === -1) startTimestampColumnId = null;
+    if(startTimestampColumnId === -1) startTimestampColumnId = '';
 
     var endKeywords = keywords.general.concat(keywords.endDate).join('|');
     var endRegex = new RegExp(`(?<=(^|[_\\s]))(${endKeywords})(?=($|[_\\s]))\\S+(?<=(^|[_\\s]))(${endKeywords})(?=($|[_\\s]))`, 'g');
     var endTimestampColumnId = columns.findIndex(column => column.toUpperCase().match(endRegex));
-    if(endTimestampColumnId === -1) endTimestampColumnId = null;
+    if(endTimestampColumnId === -1) endTimestampColumnId = '';
 
     return {columns, data, polylineColumnId, startTimestampColumnId, endTimestampColumnId};
 }
@@ -43,7 +43,7 @@ export const generateFeatureCollection = (data, columns, polylineColumnId, start
   
         let geometry = polyline.toGeoJSON(row[polylineColumnId]);
   
-        if(includePathAnimation && startTimestampColumnId && endTimestampColumnId) {
+        if(includePathAnimation && startTimestampColumnId && endTimestampColumnId && !isNaN(Date.parse(row[startTimestampColumnId])) && !isNaN(Date.parse(row[endTimestampColumnId]))) {
           let startTimestamp = Date.parse(row[startTimestampColumnId]);
           let endTimestamp = Date.parse(row[endTimestampColumnId]);
           let interval = Math.floor((endTimestamp - startTimestamp) / geometry.coordinates.length);

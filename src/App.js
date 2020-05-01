@@ -11,9 +11,9 @@ import worker from 'workerize-loader!./components/worker/FileDataWorker' // esli
 const initialState = {
   columns: [],
   data: [],
-  polylineColumnId: null,
-  startTimestampColumnId: null,
-  endTimestampColumnId: null,
+  polylineColumnId: '',
+  startTimestampColumnId: '',
+  endTimestampColumnId: '',
   includePathAnimation: false,
 
   isFileLoading: false,
@@ -82,7 +82,7 @@ class App extends React.Component {
       <>
         <div className="section">
             <h1>Polyline to GeoJSON Decoder</h1>
-            <div className="section-content">Upload CSV file that contains Polyline values, which will be used to convert to GeoJSON coordinates. Optionally, your file can contain start timestamp and end timestamp for animating paths. Every available column will be converted into Feature properties.</div>
+            <div className="section-content">Upload CSV file that contains Polylines to convert them into GeoJSON. Optionally, your file can contain start timestamp and end timestamp for animating paths. Every available column will be converted into Feature properties.</div>
         </div>
         <div className="content">
           {(!this.state.isFileLoading && !this.state.isFileUploaded && !this.state.isGenerating) &&

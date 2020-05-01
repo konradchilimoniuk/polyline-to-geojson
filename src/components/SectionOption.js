@@ -8,7 +8,7 @@ export class SectionOption extends Component {
                     <label htmlFor={this.props.id}>{this.props.title}</label>
                     <div className="select-wrapper">
                         <select id={this.props.id} name={this.props.id} value={this.props.value} onChange={this.props.onChange}>
-                            <option value={null}></option>
+                            <option value={''}></option>
                             {this.props.columns.map((column, index) => <option key={index} value={index}>{column}</option>)}
                         </select>
                     </div>
