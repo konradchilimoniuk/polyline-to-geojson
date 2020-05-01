@@ -19,7 +19,7 @@ export class ColumnChooser extends Component {
                         <label htmlFor="includePathAnimation">Include Path Animation?</label>
                         <input type="checkbox" id="includePathAnimation" name="includePathAnimation" checked={this.props.includePathAnimation} onChange={e => this.props.handleChangeOptionValue(e.target.name, e.target.checked)} />
                         <div className="section-description">
-                            Checking this checkbox will set if start and end date should be included in GeoJSON coordinates. Thank to this, animating path through time will be possible.
+                            Checking this checkbox include start and end date in GeoJSON coordinates. Thanks to this, animating path through time will be possible.
                         </div>
                     </div>
 

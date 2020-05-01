@@ -46,7 +46,7 @@ export const generateFeatureCollection = (data, columns, polylineColumnId, start
   
         let coordinates = polyline.decode(row[polylineColumnId]);
   
-        if(includePathAnimation) {
+        if(includePathAnimation && startTimestampColumnId && endTimestampColumnId) {
           let startTimestamp = Date.parse(row[startTimestampColumnId]);
           let endTimestamp = Date.parse(row[endTimestampColumnId]);
           let interval = Math.floor((endTimestamp - startTimestamp) / coordinates.length);

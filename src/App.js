@@ -96,6 +96,11 @@ class App extends React.Component {
                 columnsLength={this.state.columns.length}
                 dataLength={this.state.data.length}
               />
+              <FileExport
+                generateGeoJSON={this.generateGeoJSON}
+                fileName={this.state.fileName}
+                handleFileNameChange={this.handleFileNameChange}
+              />
               <ColumnChooser
                 columns={this.state.columns}
                 polylineColumnId={this.state.polylineColumnId}
@@ -104,12 +109,10 @@ class App extends React.Component {
                 includePathAnimation={this.state.includePathAnimation}
                 handleChangeOptionValue={this.handleChangeOptionValue}
               />
-              <FileExport
-                generateGeoJSON={this.generateGeoJSON}
-                fileName={this.state.fileName}
-                handleFileNameChange={this.handleFileNameChange}
+              <DataEditor
+                columns={this.state.columns}
+                data={this.state.data}
               />
-              <DataEditor />
               <ReuploadFile reinitialize={() => this.setState(initialState)} />
             </>
           }

@@ -6,6 +6,6 @@ export const keywords = {
         "START", "STARTED"
     ],
     endDate: [
-        "END", "COMPLETED"
+        "END", "ENDED", "COMPLETED"
     ]
 }

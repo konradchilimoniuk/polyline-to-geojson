@@ -207,34 +207,6 @@ h2 {
       font-weight: bold;
     }
 
-    .select-wrapper {
-      position: relative;
-      width: 290px;
-      display: inline-block;
-
-      font-size: 12px;
-      background: none;
-      border: 1px solid #CCC;
-      border-radius: $button-radius;
-
-      &:after {
-        content: '\25BE';
-        right: 0;
-        padding: 5px 10px;
-        position: absolute;
-        pointer-events: none;
-      }
-    }
-
-    select {
-      width: 100%;
-      background: none;
-      cursor: pointer;
-      border: none;
-      appearance: none;
-      padding: 5px 10px;
-    }
-
     input {
       width: 290px;
       padding: 5px 10px;
@@ -263,6 +235,7 @@ h2 {
 
 .section {
   margin-bottom: 30px;
+  position: relative;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -288,6 +261,185 @@ h2 {
     & button {
       display: block;
       margin: 10px auto 0;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+
+  & button {
+    display: inline-block;
+    border-radius: 0;
+    width: 40px;
+    text-align: center;
+    padding: 6px 10px;
+    margin: 0;
+
+    &:first-of-type {
+      border-radius: 5px 0 0 5px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &.active {
+      background-color: darken($primary-color, 10%);
+    }
+
+    &.arrow {
+      background-color: lighten($primary-color, 10);
+
+      &:hover {
+        background-color: lighten($primary-color, 6);
+      }
+    }
+  }
+
+  input {
+    display: inline-block;
+    width: 50px;
+    font-size: 12px;
+    background: none;
+    border: 1px solid #CCC;
+    border-radius: $button-radius;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  .desc {
+    display: inline;
+    margin-left: 10px;
+    font-style: italic;
+    color: #666;
+    font-size: 70%;
+  }
+}
+
+.select-wrapper {
+  position: relative;
+  width: 290px;
+  display: inline-block;
+
+  font-size: 12px;
+  background: none;
+  border: 1px solid #CCC;
+  border-radius: $button-radius;
+
+  &.fit-content {
+    width: fit-content;
+    margin-left: 10px;
+  }
+
+  &:after {
+    content: '\25BE';
+    right: 0;
+    padding: 3px 5px;
+    position: absolute;
+    pointer-events: none;
+  }
+}
+
+select {
+  width: 100%;
+  background: none;
+  cursor: pointer;
+  border: none;
+  appearance: none;
+  padding: 5px 20px 5px 10px;
+}
+
+.data-editor {
+
+  .filters {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    #filterText {
+      width: 290px;
+      display: inline-block;
+      font-size: 12px;
+      background: none;
+      border: 1px solid #CCC;
+      border-radius: 5px;
+    }
+  }
+
+  .input-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      padding: 5px 10px 5px 25px;
+    }
+
+    .icon {
+      background-size: contain;
+      width: 13px;
+      height: 13px;
+      position: absolute;
+      left: 7px;
+
+      &.search-icon {
+        background-image: url('./images/search-icon.svg');
+      }
+    }
+  }
+
+  .table {
+    overflow: scroll;
+    height: 500px;
+    border-radius: $box-radius;
+    border: 1px solid $secondary-color;
+
+    table {
+      position: relative;
+      border-collapse: collapse; 
+      text-align: left;
+
+      th, td {
+        padding: 15px;
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      th {
+        top: 0;
+        position: sticky;
+        background-color: $primary-color;
+        color: #FFF;
+        cursor: pointer;
+        user-select: none;
+
+        .arrow {
+          background-image: url('./images/arrow-white.svg');
+          width: 10px;
+          height: 10px;
+          display: inline-block;
+          margin-left: 5px;
+          transition: $global-transition;
+        }
+
+        &.desc .arrow {
+          transform: rotate(180deg);
+        }
+      }
+
+      tr {
+        border-bottom: 1px solid $secondary-color;
+
+        &:last-of-type {
+          border: none;
+        }
+      }
     }
   }
 }
