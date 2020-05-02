@@ -10,7 +10,12 @@ export const parseFileData = fileData => {
     if(rows.length > 500000) throw new Error("Uploaded file has more than 100000 rows. Please upload smaller file.");
     
     const columns = rows[0].split(",");
-    var data = rows.slice(1).map(row => row.split(","));
+    var data = rows.slice(1).map((row,index) => {
+      return { 
+        index,
+        values: row.split(",")
+      }
+    });
 
     var polylineColumnId = columns.findIndex(column => column.toUpperCase().match(/(POLYLINE)/g));
     if(polylineColumnId === -1) polylineColumnId = '';
@@ -37,15 +42,15 @@ export const generateFeatureCollection = (data, columns, polylineColumnId, start
       for(let row of data) {
         let feature = {
           type: "Feature",
-          properties: Object.assign(...columns.map((column, i) => ({[column]: row[i]}))),
+          properties: Object.assign(...columns.map((column, i) => ({[column]: row.values[i]}))),
           geometry: null
         }
   
-        let geometry = polyline.toGeoJSON(row[polylineColumnId]);
+        let geometry = polyline.toGeoJSON(row.values[polylineColumnId]);
   
-        if(includePathAnimation && startTimestampColumnId && endTimestampColumnId && !isNaN(Date.parse(row[startTimestampColumnId])) && !isNaN(Date.parse(row[endTimestampColumnId]))) {
-          let startTimestamp = Date.parse(row[startTimestampColumnId]);
-          let endTimestamp = Date.parse(row[endTimestampColumnId]);
+        if(includePathAnimation && startTimestampColumnId && endTimestampColumnId && !isNaN(Date.parse(row.values[startTimestampColumnId])) && !isNaN(Date.parse(row[endTimestampColumnId]))) {
+          let startTimestamp = Date.parse(row.values[startTimestampColumnId]);
+          let endTimestamp = Date.parse(row.values[endTimestampColumnId]);
           let interval = Math.floor((endTimestamp - startTimestamp) / geometry.coordinates.length);
   
           geometry.coordinates.map((coordinate, index) => {

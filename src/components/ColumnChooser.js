@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SectionOption from './SectionOption'
+import SectionOption from './objects/SectionOption'
 
 export class ColumnChooser extends Component {
     handleChangeSectionOption = e => {

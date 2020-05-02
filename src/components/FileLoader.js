@@ -1,7 +1,7 @@
 import React from 'react'
 import ErrorNotification from './ErrorNotification';
 import { v4 as uuid } from 'uuid'
-import DragArea from './DragArea';
+import DragArea from './objects/DragArea';
 import worker from 'workerize-loader!./worker/FileDataWorker' // eslint-disable-line import/no-webpack-loader-syntax
 
 class FileLoader extends React.Component {

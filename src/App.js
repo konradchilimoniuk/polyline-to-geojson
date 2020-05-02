@@ -2,10 +2,10 @@ import React from 'react';
 import FileLoader from './components/FileLoader';
 import DataEditor from './components/DataEditor';
 import FileSummary from './components/FileSummary';
-import ReuploadFile from './components/ReuploadFile';
+import ReuploadFile from './components/objects/ReuploadFile';
 import ColumnChooser from './components/ColumnChooser';
 import FileExport from './components/FileExport';
-import Loading from './components/Loading';
+import Loading from './components/objects/Loading';
 import worker from 'workerize-loader!./components/worker/FileDataWorker' // eslint-disable-line import/no-webpack-loader-syntax
 
 const initialState = {
@@ -42,6 +42,15 @@ class App extends React.Component {
   handleIsFileLoading = value => this.setState({ isFileLoading: value })
   handleIsGenerating = value => this.setState({ isGenerating: value })
   handleFileNameChange = value => this.setState({ fileName: value })
+
+  handleEditCell = (value, rowIndex, columnIndex) => {
+    let data = [...this.state.data];
+    let id = data.findIndex(row => row.index === rowIndex);
+    data[id].values[columnIndex] = value;
+    this.setState({
+      data: data
+    })
+  }
 
   generateGeoJSON = e => {
       e.preventDefault();
@@ -112,6 +121,7 @@ class App extends React.Component {
               <DataEditor
                 columns={this.state.columns}
                 data={this.state.data}
+                handleEditCell={this.handleEditCell}
               />
               <ReuploadFile reinitialize={() => this.setState(initialState)} />
             </>

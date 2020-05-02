@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Pagination from './Pagination';
+import Pagination from './objects/Pagination';
+import CellEditor from './objects/CellEditor';
 
 export class DataEditor extends Component {
     state = {
@@ -8,12 +9,13 @@ export class DataEditor extends Component {
         textFilter: '',
         sort: {
             columnId: null,
-            isAscending: false,
+            isAscending: true
         }
     }
 
     sortByColumnn = (a, b) => {
-        var firstValue = a[this.state.sort.columnId], secondValue = b[this.state.sort.columnId];
+        var firstValue = this.state.sort.columnId ? a[this.state.sort.columnId] : a;
+        var secondValue = this.state.sort.columnId ? b[this.state.sort.columnId]: b;
 
         if(!isNaN(Date.parse(firstValue)) && !isNaN(Date.parse(secondValue))) {
             firstValue = Date.parse(firstValue);
@@ -37,17 +39,32 @@ export class DataEditor extends Component {
 
     handleSortColumn = (e, index) => {
         e.preventDefault();
-        let direction = this.state.sort.isAscending === true && this.state.sort.columnId === index ? false : true;
-        this.setState({ sort: { columnId: index, isAscending: direction }});
+        this.setState({
+            sort: {
+                columnId: index,
+                isAscending: this.state.sort.columnId === index ? !this.state.sort.isAscending : true
+            }
+        });
+    }
+
+    handleCancelSortColumn = e => {
+        e.preventDefault();
+        this.setState({
+            sort: {
+                columnId: null,
+                isAscending: true
+            }
+        });
     }
 
     render() {
         var data = [];
         
-        if(this.state.textFilter !== '') data = this.props.data.filter(row => row.some(cell => cell.includes(this.state.textFilter)))
+        if(this.state.textFilter !== '') data = this.props.data.filter(row => row.values.some(cell => cell.includes(this.state.textFilter)))
         else data = this.props.data;
         
-        if(this.state.sort.columnId !== null) data.sort(this.sortByColumnn);
+        if(this.state.sort.columnId !== null) data.sort((a, b) => this.sortByColumnn(a.values, b.values));
+        else data.sort((a, b) => this.sortByColumnn(a.index, b.index));
 
         const dataStart = (this.state.currentPage - 1) * this.state.rowsPerPage;
         const dataEnd = dataStart + this.state.rowsPerPage;
@@ -72,6 +89,7 @@ export class DataEditor extends Component {
                                         return <th
                                             key={`th-${index}`}
                                             onClick={e => this.handleSortColumn(e, index)}
+                                            onContextMenu={this.handleCancelSortColumn}
                                             className={this.state.sort.columnId === index ? (this.state.sort.isAscending ? 'asc' : 'desc') : undefined}
                                         >{column} {this.state.sort.columnId === index && <span className="arrow"></span>}</th>
                                         })}
@@ -79,9 +97,9 @@ export class DataEditor extends Component {
                             </thead>
                             <tbody>
                                 {partialData.map((row, rowIndex) => {
-                                    return <tr key={`tr-${rowIndex}`}>
+                                    return <tr key={`tr-${row.index}`}>
                                         <td className="row-number">{dataStart + rowIndex + 1}</td>
-                                        {row.map((cell, cellIndex)=> <td key={`td-${cellIndex}`}>{cell}</td>)}
+                                        {row.values.map((cell, cellIndex)=> <CellEditor key={`td-${cellIndex}`} value={cell} columnId={cellIndex} rowId={rowIndex} handleEditCell={this.props.handleEditCell} />)}
                                     </tr>
                                 })}
                             </tbody>

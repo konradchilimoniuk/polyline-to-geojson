@@ -405,10 +405,12 @@ select {
         padding: 15px;
         max-width: 300px;
         white-space: nowrap;
-        overflow: hidden;
+        position: relative;
 
         &.row-number {
+          cursor: auto;
           width: 70px;
+          text-align: center;
         }
       }
 
@@ -419,6 +421,7 @@ select {
         color: #FFF;
         cursor: pointer;
         user-select: none;
+        z-index: 2;
 
         .arrow {
           background-image: url('./images/arrow-white.svg');
@@ -470,5 +473,33 @@ select {
   
   button {
     margin-top: 10px;
+  }
+}
+
+.tooltip {
+  opacity: 0;
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  z-index: 1;
+
+  max-width: 310px;
+  padding: 20px;
+  background-color: #FFF;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  word-wrap: break-word;
+  white-space: normal;
+
+  transition: $global-transition;
+
+  *:hover > & {
+    opacity: 1;
+    visibility: visible;
+
+    transition-delay: 0.5s !important;
   }
 }
